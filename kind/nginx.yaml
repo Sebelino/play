@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginxinc/nginx-unprivileged:1.16.1-alpine
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: nginx-configmap
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-configmap
+  namespace: default
+data:
+  nginx.conf: |
+    worker_processes 3;
+    pid /tmp/nginx.pid;
+    error_log /var/log/nginx/error.log;
+    events {
+      worker_connections 10240;
+    }
+    http {
+      server {
+        listen 8080;
+        server_name _;
+        location / {
+          root /usr/share/nginx/html;
+          index index.html index.htm;
+        }
+      }
+    }
+---
+
