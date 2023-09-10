@@ -4,6 +4,7 @@ metadata:
   name: myapp
   labels:
     app: myapp
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -25,3 +26,18 @@ spec:
               port: 8080
             periodSeconds: 3
             initialDelaySeconds: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp
+  namespace: default
+spec:
+  selector:
+    app: myapp
+  type: ClusterIP
+  ports:
+  - name: myapp
+    protocol: TCP
+    port: 80
+    targetPort: 8080
