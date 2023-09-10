@@ -13,6 +13,6 @@ WORKDIR /
 
 COPY --from=build /myapp /myapp
 
-EXPOSE 8081
+EXPOSE 8080
 
 CMD ["/myapp"]
