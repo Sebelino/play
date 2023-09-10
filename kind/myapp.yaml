@@ -19,3 +19,9 @@ spec:
           image: myapp:dev
           ports:
             - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            periodSeconds: 3
+            initialDelaySeconds: 1

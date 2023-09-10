@@ -16,5 +16,10 @@ func main() {
 	http.HandleFunc("/hi", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hi")
 	})
+	http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+		pong := "I'm healthy!"
+		fmt.Println(pong)
+		fmt.Fprintf(w, pong)
+	})
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
