@@ -19,11 +19,11 @@ spec:
         - name: myapp
           image: myapp:dev
           ports:
-            - containerPort: 8080
+            - containerPort: 8000
           readinessProbe:
             httpGet:
               path: /healthz
-              port: 8080
+              port: 8000
             periodSeconds: 3
             initialDelaySeconds: 1
 ---
@@ -40,4 +40,4 @@ spec:
   - name: myapp
     protocol: TCP
     port: 80
-    targetPort: 8080
+    targetPort: 8000
