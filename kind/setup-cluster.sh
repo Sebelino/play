@@ -21,6 +21,4 @@ kubectl -n kong patch service kong-proxy -p "$(cat ./kong/service-patch.json)"
 # recently? Try restarting your machine and modprobing some stuff.
 # https://github.com/kubernetes-sigs/kind/issues/3170
 
-kubectl apply -f ingress.yaml
-
 # Now try `curl localhost/myapp`
