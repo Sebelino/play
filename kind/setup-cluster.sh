@@ -22,3 +22,5 @@ kubectl -n kong patch service kong-proxy -p "$(cat ./kong/service-patch.json)"
 # https://github.com/kubernetes-sigs/kind/issues/3170
 
 # Now try `curl localhost/myapp`
+
+kubectl apply -f keycloak.yaml
