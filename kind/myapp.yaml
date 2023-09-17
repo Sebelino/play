@@ -37,7 +37,7 @@ spec:
     app: myapp
   type: ClusterIP
   ports:
-  - name: myapp
+  - name: myapp-http
     protocol: TCP
     port: 80
     targetPort: 8000
@@ -60,4 +60,4 @@ spec:
           service:
             name: myapp
             port:
-              number: 80
+              name: myapp-http
