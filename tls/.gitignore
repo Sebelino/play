@@ -1,4 +1,4 @@
-*.crt
-*.csr
-*.key
-*.pub
+*.out.crt
+*.out.csr
+*.out.key
+*.out.pub

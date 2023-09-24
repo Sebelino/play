@@ -10,8 +10,8 @@ openssl req \
     -days 30 \
     -nodes \
     -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=root.sebelino.com" \
-    -keyout rootca.key \
-    -out rootca.crt
+    -keyout rootca.out.key \
+    -out rootca.out.crt
 
 # Print cert
-openssl x509 -text -noout -in rootca.crt
+openssl x509 -text -noout -in rootca.out.crt
