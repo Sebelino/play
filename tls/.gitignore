@@ -2,3 +2,4 @@
 *.out.csr
 *.out.key
 *.out.pub
+*.out.srl
