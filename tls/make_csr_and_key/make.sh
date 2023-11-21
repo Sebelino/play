@@ -6,7 +6,7 @@ openssl req \
     -new \
     -newkey rsa:2048 \
     -nodes \
-    -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=root.sebelino.com" \
+    -subj "/CN=root.sebelino.com" \
     -keyout rootca.out.key \
     -out rootca.out.csr
 

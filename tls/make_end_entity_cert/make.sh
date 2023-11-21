@@ -12,7 +12,7 @@ openssl req \
     -new \
     -key rootca.out.key \
     -nodes \
-    -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=root.sebelino.com" \
+    -subj "/CN=root.sebelino.com" \
     -out rootca.out.csr
 
 openssl x509 \
@@ -32,7 +32,7 @@ openssl req \
     -new \
     -key end.out.key \
     -nodes \
-    -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=end.sebelino.com" \
+    -subj "/CN=end.sebelino.com" \
     -out end.out.csr
 
 echo "-------------- Issuing, run by root CA --------------"
