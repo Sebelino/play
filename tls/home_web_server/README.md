@@ -2,6 +2,8 @@
 
 Objective: Run a HTTPS web server on your workstation and expose it to the public internet.
 
+## Expose HTTP server on public IP address
+
 Log in to your router. In my case, it is accessible at http://192.168.1.1.
 
 Configure two port-forwarding rules, one for HTTP and one for HTTPS:
@@ -43,3 +45,19 @@ Explanation:
 1. From your workstation, `curl` sends a HTTP request to your public IP address on port `80`.
 1. The router associated with your public IP address forwards the HTTP request to `docker-proxy` running on your workstation on port `8080`.
 1. `docker-proxy` forwards the HTTP request to the Nginx application inside the container running on port `80`.
+
+## Add domain name
+
+At your domain name registrar, insert an A record into your zonefile. It should
+look something like this:
+
+```
+web.sebelino.com. 3600 IN A xxx.xxx.xxx.xxx
+```
+
+Now try accessing the HTTP web server by the domain name:
+
+```bash
+$ curl -s http://web.sebelino.com | grep "Thank you for using nginx"
+<p><em>Thank you for using nginx.</em></p>
+```
