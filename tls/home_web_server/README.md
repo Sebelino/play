@@ -6,8 +6,10 @@ Log in to your router. In my case, it is accessible at http://192.168.1.1.
 
 Configure two port-forwarding rules, one for HTTP and one for HTTPS:
 
-* http: Public port = 80, private port = 8080, destination = your private IP address
+* http: Public port = 80, private port = 8080, destination = your private IP address (e.g. `192.168.1.246`)
 * https: Public port = 443, private port = 8443, destination = your private IP address
+
+![image](https://github.com/Sebelino/play/assets/837775/c5adb5d0-d965-482e-a60c-432257f64f3b)
 
 If you need to find your private IP address, you can do so with `ifconfig`:
 
@@ -30,7 +32,7 @@ Open a second terminal and confirm that you are able to access the Nginx
 application using your public IP address:
 
 ```bash
-$ public_ip_address="$(curl -s4 ifconfig.me)"
+$ public_ip_address="$(curl -s -4 https://ifconfig.me)"
 $ curl -s http://$public_ip_address | grep "Welcome to nginx"
 <title>Welcome to nginx!</title>
 <h1>Welcome to nginx!</h1>
