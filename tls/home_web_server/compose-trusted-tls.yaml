@@ -1,0 +1,12 @@
+version: '3'
+services:
+  nginx:
+    container_name: my_https_nginx
+    image: nginx:1.15-alpine
+    ports:
+       - "8080:80"
+       - "8443:443"
+    volumes:
+       - ./data/nginx/conf.d:/etc/nginx/conf.d
+       - ./data/nginx/tls-trusted:/etc/nginx/tls
+       - ./data/nginx/srv:/srv

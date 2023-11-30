@@ -48,8 +48,9 @@ Explanation:
 
 ## Add domain name
 
-At your domain name registrar, insert an A record into your zonefile. It should
-look something like this:
+At your domain name registrar, insert an A record into your zonefile.
+In my case, I have purchased the `sebelino.com` domain from Google Domains.
+The record should look something like this:
 
 ```
 web.sebelino.com. 3600 IN A xxx.xxx.xxx.xxx
@@ -60,4 +61,58 @@ Now try accessing the HTTP web server by the domain name:
 ```bash
 $ curl -s http://web.sebelino.com | grep "Thank you for using nginx"
 <p><em>Thank you for using nginx.</em></p>
+```
+
+## Untrusted HTTPS
+
+Now let's tell Nginx to server pages over HTTPS. We will use `openssl` to
+generate a CA private key + certificate as well as an end-entity private key +
+certificate. Nginx will be using the latter pair.
+
+You can populate the `./data/nginx/tls-untrusted/` with this pair of files by
+running:
+
+```bash
+$ ./make_untrusted_tls.sh
+```
+
+Then use `docker-compose` to run Nginx with the directories below
+`./data/nginx/` mounted:
+
+```
+$ docker-compose -f compose-untrusted-tls.yaml up
+```
+
+Now try fetching a page over HTTPS:
+
+```
+$ public_ip_address="$(curl -s -4 https://ifconfig.me)"
+$ curl https://$public_ip_address --insecure
+<html>
+<body>
+Hello World
+</body>
+</html>
+```
+
+The `--insecure` flag is necessary because `curl` will not recognize the Issuer
+of the end-entity certificate as a trusted root certificate.
+
+## Trusted HTTPS
+
+Finally, let's request a certificate issued by a public CA, thus making the
+`--insecure` flag unnecessary.
+
+To request a certificate + private key from Let's Encrypt with `certbot`, run:
+
+```
+$ ./request_cert.sh
+```
+
+Follow the instructions and insert a record into your zonefile as requested.
+
+Rerun the application, this time with the new private key + certificate:
+
+```bash
+$ docker-compose -f compose-trusted-tls.yaml up
 ```
